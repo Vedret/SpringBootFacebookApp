@@ -13,7 +13,8 @@ import com.facebook.app.entity.Users;
 public interface UserDao {
 
 	Users findById(String facebookId);
-
+	boolean isUserExist(Users user);
+	void saveUser(Users user);
 
 	
 

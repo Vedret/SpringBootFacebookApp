@@ -32,7 +32,7 @@ public class HomeController {
 	
 	 @RequestMapping(value="/users/{user_facebook_id}",method = RequestMethod.GET)	 
 	 public ResponseEntity<?> viewUser(@PathVariable String user_facebook_id,Model model) throws IOException{
-		 	
+		 	//i don't need model here for this task , but i will leave it and maybe implement some view latter
 		 	Users user = userDao.findById(user_facebook_id);
 	        if(user==null) {
 	        	return new ResponseEntity(new CustomErrorType("User " + user_facebook_id +" Not found" ),HttpStatus.NOT_FOUND) ;
@@ -42,7 +42,21 @@ public class HomeController {
 	        return new ResponseEntity<Users>(user,HttpStatus.OK) ;
 	    }
 	 
-	 
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public ResponseEntity<?> createUser(@RequestBody Users user, UriComponentsBuilder ucBuilder) {
+
+		// Check if user exists in db
+		if (userDao.isUserExist(user)) {
+
+			return new ResponseEntity(
+					new CustomErrorType(
+							"Unable to create. A User with FacebookId " + user.getFacebookId() + " already exist."),
+					HttpStatus.CONFLICT);
+		}
+
+		userDao.saveUser(user);
+		return new ResponseEntity<Users>(user, HttpStatus.OK);
+	}
 	  
 }
 		 

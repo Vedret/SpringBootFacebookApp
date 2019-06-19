@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
 		
 		// get the current hibernate session
 		Session session = getSession();
-				
+		
 		// create a query
 		Query theQuery = 
 				session.createQuery("from Users where facebookId = :facebookId ", Users.class);
@@ -51,6 +51,35 @@ public class UserDaoImpl implements UserDao {
 					
 		// return the results		
 		return (Users) ((org.hibernate.query.Query<Users>) theQuery).uniqueResult();
+	}
+	
+	@Override
+	public void saveUser(Users user) {
+
+		// get the current hibernate session
+		Session session = getSession();
+
+		// save/update the user
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			session.saveOrUpdate(user);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
+	}
+	
+	@Override
+	public boolean isUserExist(Users user) {
+		
+		return findById(user.getFacebookId())!=null;
 	}
 	
 	
