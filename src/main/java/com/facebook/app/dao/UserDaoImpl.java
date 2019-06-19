@@ -82,6 +82,30 @@ public class UserDaoImpl implements UserDao {
 		return findById(user.getFacebookId())!=null;
 	}
 	
+	@Override
+	public void deleteUser(String facebookId) {
+ 
+		// get the current hibernate session
+		Session session = getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			// delete
+			Query theQuery = session.createQuery("delete from Users where facebookId = :facebookId ");
+			theQuery.setParameter("facebookId", facebookId);
+			theQuery.executeUpdate();	
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+				
+	}
+	
 	
 	
 	}

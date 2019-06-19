@@ -57,6 +57,20 @@ public class HomeController {
 		userDao.saveUser(user);
 		return new ResponseEntity<Users>(user, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/user/{user_fb_id}",method =  RequestMethod.DELETE)	
+	   public ResponseEntity<?>  deleteUser(@PathVariable(value="user_fb_id") String  user_fb_id) {
+			
+		      
+		        Users user = userDao.findById(user_fb_id);
+		        if (user == null) {
+		            
+		            return new ResponseEntity(new CustomErrorType("Unable to delete. User with facebookID " + user_fb_id + " not found."),
+		                    HttpStatus.NOT_FOUND);
+		        }
+		        userDao.deleteUser(user_fb_id);
+		        return new ResponseEntity("User deleted ", HttpStatus.OK);
+		    }
 	  
 }
 		 
