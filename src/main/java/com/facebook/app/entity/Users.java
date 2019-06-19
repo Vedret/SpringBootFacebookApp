@@ -3,19 +3,24 @@ package com.facebook.app.entity;
 import javax.persistence.*;
 
 @Entity
+
 @Table(name="users")
 public class Users {
 
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	private String facebookId;
 	private String name ;
 	private String gender ;
 	private String urlOfImageFile;
 	
-	public Users(int id, String facebookId, String name, String gender, String urlOfImageFile) {
+	public Users(){}
+	
+
+
+	public Users(Integer id, String facebookId, String name, String gender, String urlOfImageFile) {
 		super();
 		this.id = id;
 		this.facebookId = facebookId;
@@ -56,16 +61,16 @@ public class Users {
 		this.urlOfImageFile = urlOfImageFile;
 	}
 
-	public int getId() {
-		return id;
-	}
+
 
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", facebookId=" + facebookId + ", name=" + name + ", gender=" + gender
 				+ ", urlOfImageFile=" + urlOfImageFile + "]";
 	}
-	
+
+
+
 	
 	
 	
