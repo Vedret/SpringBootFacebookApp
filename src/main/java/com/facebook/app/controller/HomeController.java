@@ -73,7 +73,8 @@ public class HomeController {
 		    }
 	  
 }
-		 
+		 //@RequestMapping(value = "/users/{user_fb_id}/photos", method = RequestMethod.POST)
+		 //Will be implemented latter 
 	 
 	 
 
