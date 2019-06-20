@@ -1,9 +1,7 @@
 package com.facebook.app.entity;
-
 import javax.persistence.*;
 
 @Entity
-
 @Table(name="users")
 public class Users {
 
