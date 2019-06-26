@@ -13,8 +13,9 @@ import com.facebook.app.dao.UserDao;
 import com.facebook.app.entity.Users;
 
 import java.io.IOException;
-import java.lang.reflect.Parameter;
+
 import java.util.Date;
+
 
 @Controller
 @RequestMapping("/")
@@ -56,7 +57,8 @@ public class FacebookController {
              
        
         Users user = new Users ();
-        user.setFacebookId(facebook.fetchObject("me", User.class, "name").getId());
+       
+        user.setFacebookId(facebook.fetchObject("me", User.class, "id").getId());
         user.setGender(facebook.fetchObject("me", User.class, "gender").getGender());
         user.setName(facebook.fetchObject("me", User.class, "name").getName());
         userDao.saveUser(user);

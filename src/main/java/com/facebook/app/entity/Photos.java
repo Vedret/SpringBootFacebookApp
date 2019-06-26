@@ -1,7 +1,4 @@
 package com.facebook.app.entity;
-
-import java.sql.Blob;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

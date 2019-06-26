@@ -7,8 +7,6 @@ public class Users {
 
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
 	private String facebookId;
 	private String name ;
 	private String gender ;
@@ -20,7 +18,6 @@ public class Users {
 
 	public Users(Integer id, String facebookId, String name, String gender, String urlOfImageFile) {
 		super();
-		this.id = id;
 		this.facebookId = facebookId;
 		this.name = name;
 		this.gender = gender;
@@ -63,7 +60,7 @@ public class Users {
 
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", facebookId=" + facebookId + ", name=" + name + ", gender=" + gender
+		return "Users [ facebookId=" + facebookId + ", name=" + name + ", gender=" + gender
 				+ ", urlOfImageFile=" + urlOfImageFile + "]";
 	}
 
