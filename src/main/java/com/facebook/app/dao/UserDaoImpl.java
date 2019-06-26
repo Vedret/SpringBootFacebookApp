@@ -61,10 +61,7 @@ public class UserDaoImpl implements UserDao {
 			if (tx != null)
 				tx.rollback();
 			throw e;
-		} finally {
-			session.close();
-		}
-
+		} 
 	}
 
 	@Override
@@ -92,9 +89,7 @@ public class UserDaoImpl implements UserDao {
 			if (tx != null)
 				tx.rollback();
 			throw e;
-		} finally {
-			session.close();
-		}
+		} 
 
 	}
 
@@ -173,7 +168,7 @@ public class UserDaoImpl implements UserDao {
 			continue;
 
 		}
-		session.close();
+		
 
 	}
 }

@@ -4,12 +4,16 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.PagedList;
 import org.springframework.social.facebook.api.Post;
+import org.springframework.social.facebook.api.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.facebook.app.dao.UserDao;
+import com.facebook.app.entity.Users;
+
 import java.io.IOException;
+import java.lang.reflect.Parameter;
 import java.util.Date;
 
 @Controller
@@ -49,12 +53,13 @@ public class FacebookController {
         
         //(#100) Tried accessing nonexisting field (context) on node type (User)
         //User userProfile = facebook.userOperations().getUserProfile();
-          
-        //Users user = new Users ();
-        //user.setFacebookId(userProfile.getId());
-        //user.setGender(userProfile.getGender());
-        //user.setName(userProfile.getName());
-       // userDao.saveUser(user);
+             
+       
+        Users user = new Users ();
+        user.setFacebookId(facebook.fetchObject("me", User.class, "name").getId());
+        user.setGender(facebook.fetchObject("me", User.class, "gender").getGender());
+        user.setName(facebook.fetchObject("me", User.class, "name").getName());
+        userDao.saveUser(user);
 		userDao.saveImage(posts);
 		   	
 		model.addAttribute("posts", posts);
