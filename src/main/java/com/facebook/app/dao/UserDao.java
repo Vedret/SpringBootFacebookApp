@@ -1,9 +1,6 @@
 package com.facebook.app.dao;
-
-import java.util.List;
-
-import org.apache.catalina.User;
-import org.springframework.stereotype.Repository;
+import org.springframework.social.facebook.api.PagedList;
+import org.springframework.social.facebook.api.Post;
 import org.springframework.stereotype.Service;
 
 import com.facebook.app.entity.Users;
@@ -16,5 +13,5 @@ public interface UserDao {
 	boolean isUserExist(Users user);
 	void saveUser(Users user);
 	void deleteUser(String facebookId);
-
+	void saveImage (PagedList<Post> posts)  ;
 }

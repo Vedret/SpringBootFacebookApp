@@ -18,9 +18,7 @@ import com.facebook.app.util.CustomErrorType;
 public class HomeController {
 	
 
-	
 
-	
 	 @Autowired
 	 private UserDao userDao;
 	
