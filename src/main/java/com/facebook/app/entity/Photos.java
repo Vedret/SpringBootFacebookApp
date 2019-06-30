@@ -1,9 +1,12 @@
 package com.facebook.app.entity;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+
+import java.util.List;
+
+import javax.persistence.*;
+
+import org.apache.catalina.User;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name="photos")
@@ -13,14 +16,23 @@ public class Photos {
 	private String photoName;
 	private String facebookId ;
 	
-	@Column(nullable = false)
+	
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name="facebookId",referencedColumnName="facebookId", insertable=false, updatable=false)
+	
+	private Users users;
+	
+	
+	
     @Lob
     private byte[] facebookPhoto;
 	private String facebookPhotoUrl  ;
 	
+	
 	public Photos() {}
 
-	
+
 
 	public String getFacebookId() {
 		return facebookId;

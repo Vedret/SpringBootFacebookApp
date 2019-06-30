@@ -31,6 +31,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	@Transactional
 
+	//Select user from database 
 	public Users findById(String facebookId) {
 
 		// get the current hibernate session
@@ -45,6 +46,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	//Save user to database
 	public void saveUser(Users user) {
 
 		// get the current hibernate session
@@ -65,6 +67,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	//Find user by ID
 	public boolean isUserExist(Users user) {
 
 		return findById(user.getFacebookId()) != null;
@@ -72,6 +75,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	//Delete user from database
 	public void deleteUser(String facebookId) {
 
 		// get the current hibernate session
@@ -170,5 +174,20 @@ public class UserDaoImpl implements UserDao {
 		}
 		
 
+	}
+
+	@Override
+	public Photos findPhotosById(String facebookId) {
+		
+		// get the current hibernate session
+		Session session = getSession();
+
+		// create a query
+		Query theQuery = session.createQuery("from Photos where facebookId = :facebookId ", Photos.class);
+		theQuery.setParameter("facebookId", facebookId);
+
+		// return the results
+		return (Photos) ((org.hibernate.query.Query<Photos>) theQuery).uniqueResult();
+	
 	}
 }

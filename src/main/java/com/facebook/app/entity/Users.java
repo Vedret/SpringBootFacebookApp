@@ -1,5 +1,13 @@
 package com.facebook.app.entity;
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+
+
 
 @Entity
 @Table(name="users")
@@ -8,21 +16,30 @@ public class Users {
 	
 	@Id
 	private String facebookId;
+	//@OneToMany(mappedBy="facebookId", cascade=CascadeType.REMOVE, orphanRemoval=true)
+	//@JsonIgnore
+	
 	private String name ;
 	private String gender ;
 	private String urlOfImageFile;
+	
+	
 	
 	public Users(){}
 	
 
 
-	public Users(Integer id, String facebookId, String name, String gender, String urlOfImageFile) {
+	public Users(String facebookId, String name, String gender, String urlOfImageFile) {
 		super();
 		this.facebookId = facebookId;
 		this.name = name;
 		this.gender = gender;
 		this.urlOfImageFile = urlOfImageFile;
 	}
+
+	
+	
+	
 
 	public String getFacebookId() {
 		return facebookId;
