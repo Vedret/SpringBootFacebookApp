@@ -1,33 +1,20 @@
 package com.facebook.app.entity;
-import java.util.List;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-
-
-
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class Users {
 
-	
 	@Id
 	private String facebookId;
-	//@OneToMany(mappedBy="facebookId", cascade=CascadeType.REMOVE, orphanRemoval=true)
-	//@JsonIgnore
-	
-	private String name ;
-	private String gender ;
-	private String urlOfImageFile;
-	
-	
-	
-	public Users(){}
-	
 
+	private String name;
+	private String gender;
+	private String urlOfImageFile;
+
+	public Users() {
+	}
 
 	public Users(String facebookId, String name, String gender, String urlOfImageFile) {
 		super();
@@ -36,10 +23,6 @@ public class Users {
 		this.gender = gender;
 		this.urlOfImageFile = urlOfImageFile;
 	}
-
-	
-	
-	
 
 	public String getFacebookId() {
 		return facebookId;
@@ -73,18 +56,10 @@ public class Users {
 		this.urlOfImageFile = urlOfImageFile;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Users [ facebookId=" + facebookId + ", name=" + name + ", gender=" + gender
-				+ ", urlOfImageFile=" + urlOfImageFile + "]";
+		return "Users [ facebookId=" + facebookId + ", name=" + name + ", gender=" + gender + ", urlOfImageFile="
+				+ urlOfImageFile + "]";
 	}
-
-
-
-	
-	
-	
 
 }

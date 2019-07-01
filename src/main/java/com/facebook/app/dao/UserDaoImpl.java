@@ -1,10 +1,12 @@
 package com.facebook.app.dao;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -31,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	@Transactional
 
-	//Select user from database 
+	// Select user from database
 	public Users findById(String facebookId) {
 
 		// get the current hibernate session
@@ -46,7 +48,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	//Save user to database
+	// Save user to database
 	public void saveUser(Users user) {
 
 		// get the current hibernate session
@@ -63,11 +65,11 @@ public class UserDaoImpl implements UserDao {
 			if (tx != null)
 				tx.rollback();
 			throw e;
-		} 
+		}
 	}
 
 	@Override
-	//Find user by ID
+	// Find user by ID
 	public boolean isUserExist(Users user) {
 
 		return findById(user.getFacebookId()) != null;
@@ -75,7 +77,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	//Delete user from database
+	// Delete user and photos from database
 	public void deleteUser(String facebookId) {
 
 		// get the current hibernate session
@@ -84,7 +86,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			tx = session.beginTransaction();
 
-			// delete
+			// delete user and photos from database (Cascade delete)
 			Query theQuery = session.createQuery("delete from Users where facebookId = :facebookId ");
 			theQuery.setParameter("facebookId", facebookId);
 			theQuery.executeUpdate();
@@ -93,7 +95,7 @@ public class UserDaoImpl implements UserDao {
 			if (tx != null)
 				tx.rollback();
 			throw e;
-		} 
+		}
 
 	}
 
@@ -156,7 +158,7 @@ public class UserDaoImpl implements UserDao {
 				photo.setFacebookPhotoUrl(posts.get(i).getPicture().split("\\?")[0]);
 				photo.setFacebookPhoto(response);
 
-				// save/update
+				// save photo obj
 				Transaction tx = null;
 				try {
 					tx = session.beginTransaction();
@@ -172,13 +174,12 @@ public class UserDaoImpl implements UserDao {
 			continue;
 
 		}
-		
 
 	}
 
 	@Override
-	public Photos findPhotosById(String facebookId) {
-		
+	public List<Photos> findPhotosById(String facebookId) {
+
 		// get the current hibernate session
 		Session session = getSession();
 
@@ -186,8 +187,8 @@ public class UserDaoImpl implements UserDao {
 		Query theQuery = session.createQuery("from Photos where facebookId = :facebookId ", Photos.class);
 		theQuery.setParameter("facebookId", facebookId);
 
-		// return the results
-		return (Photos) ((org.hibernate.query.Query<Photos>) theQuery).uniqueResult();
-	
+		List<Photos> photo = theQuery.getResultList();
+		return photo;
+
 	}
 }

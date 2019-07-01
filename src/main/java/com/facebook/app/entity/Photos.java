@@ -1,38 +1,29 @@
 package com.facebook.app.entity;
 
-import java.util.List;
-
+import java.util.Arrays;
 import javax.persistence.*;
-
-import org.apache.catalina.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name="photos")
+@Table(name = "photos")
 public class Photos {
-	
+
 	@Id
 	private String photoName;
-	private String facebookId ;
-	
-	
+	private String facebookId;
+
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name="facebookId",referencedColumnName="facebookId", insertable=false, updatable=false)
-	
+	@JoinColumn(name = "facebookId", referencedColumnName = "facebookId", insertable = false, updatable = false)
 	private Users users;
-	
-	
-	
-    @Lob
-    private byte[] facebookPhoto;
-	private String facebookPhotoUrl  ;
-	
-	
-	public Photos() {}
 
+	@Lob
+	private byte[] facebookPhoto;
+	private String facebookPhotoUrl;
 
+	public Photos() {
+	}
 
 	public String getFacebookId() {
 		return facebookId;
@@ -58,25 +49,18 @@ public class Photos {
 		this.facebookPhotoUrl = facebookPhotoUrl;
 	}
 
-
-
 	public String getPhotoName() {
 		return photoName;
 	}
 
-
-
 	public void setPhotoName(String photoName) {
 		this.photoName = photoName;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Photos [photoName=" + photoName + ", facebookId=" + facebookId + ", users=" + users + ", facebookPhoto="
+				+ Arrays.toString(facebookPhoto) + ", facebookPhotoUrl=" + facebookPhotoUrl + "]";
+	}
 
 }
